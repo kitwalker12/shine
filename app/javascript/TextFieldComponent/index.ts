@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { EventEmitter, Component } from "@angular/core";
 import   template    from "./template.html";
 
 var TextFieldComponent = Component({
@@ -11,21 +11,47 @@ var TextFieldComponent = Component({
     "addon",
     "pattern",
     "compact"
+  ],
+  outputs: [
+    "valueChanged"
   ]
 }).Class({
   constructor: [
     function() {
-      this.object     = null;
-      this.field_name = null;
-      this.label      = null;
-      this.addon      = null;
-      this.pattern    = null;
-      this.compact    = null;
+      this.object       = null;
+      this.field_name   = null;
+      this.label        = null;
+      this.addon        = null;
+      this.pattern      = null;
+      this.compact      = null;
+      this.valueChanged = new EventEmitter();
     }
   ],
+  ngOnInit: function() {
+    if (this.object && this.field_name) {
+      this.originalValue = this.object[this.field_name];
+    }
+    else {
+      this.originalValue = null;
+    }
+  },
+
+  blur: function(model) {
+    if (this.modelValid(model)) {
+      if (this.originalValue != model.value) {
+        this.valueChanged.emit({
+          field_name: this.field_name,
+          value: model.value
+        });
+        this.originalValue = model.value;
+      }
+    }
+  },
+
   modelValid: function(model) {
     return !(model.invalid && model.dirty);
   },
+
   validationPattern: function() {
     if (this.pattern) {
       return this.pattern;
