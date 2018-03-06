@@ -13,6 +13,7 @@ import { CustomerDetailsComponent } from "CustomerDetailsComponent";
 import { CustomerInfoComponent } from "CustomerDetailsComponent/CustomerInfoComponent";
 import { AddressComponent } from "CustomerDetailsComponent/AddressComponent";
 import { CreditCardComponent } from "CustomerDetailsComponent/CreditCardComponent";
+import { TextFieldComponent } from "TextFieldComponent";
 
 var routing = RouterModule.forRoot(
 [
@@ -43,6 +44,7 @@ var CustomerAppModule = NgModule({
     CustomerInfoComponent,
     AddressComponent,
     CreditCardComponent,
+    TextFieldComponent,
     AppComponent
   ],
   bootstrap:    [ AppComponent ]
