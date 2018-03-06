@@ -1,18 +1,12 @@
 <section class="customer-details" *ngIf="customer">
-  <h1>Customer {{customer.customer_id}}</h1>
-  <h2>{{customer.first_name}} {{customer.last_name}}</h2>
-  <h3>{{customer.email}}</h3>
-  <h4>{{customer.username}}</h4>
-  <h5>
-    <small class="text-uppercase">Joined</small>
-    {{customer.created_at}}
-  </h5>
   <form>
     <div class="row">
       <div class="col-md-6">
 
-        <shine-customer-info></shine-customer-info>
-        <shine-address></shine-address>
+        <shine-customer-info bind-customer="customer"></shine-customer-info>
+        <shine-address
+          addressType="Shipping"
+          bind-address="customer.shipping_address"></shine-address>
 
       </div>
 
@@ -25,7 +19,9 @@
           <section class="panel-body">
             <shine-credit-card></shine-credit-card>
             <hr>
-            <shine-address></shine-address>
+            <shine-address
+              addressType="Billing"
+              bind-address="customer.billing_address"></shine-address>
           </section>
         </article>
 
